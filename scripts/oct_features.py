@@ -1,5 +1,5 @@
 from sklearn.decomposition import PCA
-from autoencoder import MDNemulator_polyfit
+from autoencoder import autoencoder
 import os
 import pandas as pd
 import numpy as np
@@ -30,17 +30,14 @@ class extract_features():
         trainig_dataset = TensorDataset(torch.Tensor(X_dat))
         loader_train = DataLoader(trainig_dataset, batch_size=100, shuffle = True)
         
-        autoencoder = MDNemulator_polyfit(learning_rate=lr,epochs=epochs,ncomp=ncomp, input_size=input_size)
+        autoecdr = autoencoder(learning_rate=lr,epochs=epochs,ncomp=ncomp, input_size=input_size)
         trainer = Trainer(max_epochs=epochs,enable_progress_bar=False)
 
-        trainer.fit(autoencoder, train_dataloaders=loader_train)
+        trainer.fit(autoecdr, train_dataloaders=loader_train)
 
-        X_dat_latent,X_dat_out = autoencoder(torch.Tensor(X_dat))
+        X_dat_latent,X_dat_out = autoecdr(torch.Tensor(X_dat))
         
         encoder_comp = X_dat_latent.detach().cpu().numpy()
         self.encoder_comp=encoder_comp
         return X_dat_out.detach().cpu().numpy(), encoder_comp
     
-    
-        
-        
