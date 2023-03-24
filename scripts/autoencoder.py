@@ -24,7 +24,7 @@ import pytorch_lightning as pl
 
 
 
-class MDNemulator_polyfit(pl.LightningModule):
+class autoencoder(pl.LightningModule):
     def __init__(self,learning_rate,epochs,ncomp, input_size, nhidden=3):
         super().__init__()
         self.automatic_optimization = True
